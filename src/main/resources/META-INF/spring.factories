@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.xeoscript.modules.customauthtoken.config.CustomAuthTokenAutoConfiguration
