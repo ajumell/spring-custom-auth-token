@@ -1,21 +1,26 @@
 package com.xeoscript.modules.customauthtoken.config;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.xeoscript.env.Config;
+import com.xeoscript.env.EnvConfiguration;
 
-@Data
-@ConfigurationProperties(prefix = "spring.custom-auth-token")
-public class TokenProperties {
+@EnvConfiguration(prefix = "spring.custom-auth-token")
+public interface TokenProperties {
 
-    private int defaultValidityMinutes = 30;
+    @Config(name = "default-validity-minutes", value = "30", required = false)
+    int getDefaultValidityMinutes();
 
-    private int defaultUsageLimit = 1;
+    @Config(name = "default-usage-limit", value = "1", required = false)
+    int getDefaultUsageLimit();
 
-    private int tokenLength = 32;
+    @Config(name = "token-length", value = "32", required = false)
+    int getTokenLength();
 
-    private boolean hashingEnabled = false;
+    @Config(name = "hashing-enabled", value = "false", required = false)
+    boolean isHashingEnabled();
 
-    private boolean cleanupEnabled = false;
+    @Config(name = "cleanup-enabled", value = "false", required = false)
+    boolean isCleanupEnabled();
 
-    private boolean allowMultipleActive = true;
+    @Config(name = "allow-multiple-active", value = "true", required = false)
+    boolean isAllowMultipleActive();
 }
