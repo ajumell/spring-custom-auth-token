@@ -18,13 +18,16 @@ public class TokenRequest {
 
     private String tokenType;
 
-    private Duration validityDuration;
+    @Builder.Default
+    private Duration validityDuration = Duration.ofMinutes(60);
 
     private Integer usageLimit;
 
-    private boolean unlimitedUsage;
+    @Builder.Default
+    private boolean unlimitedUsage = true;
 
     private String metadata;
 
-    private HashingMode hashingMode;
+    @Builder.Default
+    private HashingMode hashingMode = HashingMode.SHA256;
 }
