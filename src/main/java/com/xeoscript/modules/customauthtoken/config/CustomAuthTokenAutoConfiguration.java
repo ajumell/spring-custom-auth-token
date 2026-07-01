@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 
 @Configuration
 @ComponentScan(basePackages = "com.xeoscript.modules.customauthtoken")
-@EntityScan(basePackages = "com.xeoscript.modules.customauthtoken.jpa.entity")
+@EntityScan(basePackages = {"com.xeoscript.modules.customauthtoken.jpa.entity"})
 public class CustomAuthTokenAutoConfiguration {
 
     @Bean

@@ -1,6 +1,7 @@
 package com.xeoscript.modules.customauthtoken.services;
 
 import com.xeoscript.modules.customauthtoken.config.TokenProperties;
+import com.xeoscript.modules.customauthtoken.dao.SessionDAO;
 import com.xeoscript.modules.customauthtoken.dao.TokenDAO;
 import com.xeoscript.modules.customauthtoken.jpa.entity.TokenEntity;
 import com.xeoscript.modules.customauthtoken.model.enums.HashingMode;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
 public class TokenServiceImpl implements TokenService {
 
     private final TokenDAO tokenDAO;
+    private final SessionDAO sessionDAO;
     private final TokenGenerator tokenGenerator;
     private final TokenHasher tokenHasher;
     private final TokenProperties properties;
@@ -154,6 +156,11 @@ public class TokenServiceImpl implements TokenService {
             log.warn("Token could not be invalidated (not found or already invalidated)");
         } else {
             log.debug("Token invalidated successfully");
+            // Clean up associated session data
+            long deletedSessions = sessionDAO.deleteByTokenValue(storedValue);
+            if (deletedSessions > 0) {
+                log.debug("Cleaned up {} session records for invalidated token", deletedSessions);
+            }
         }
     }
 
