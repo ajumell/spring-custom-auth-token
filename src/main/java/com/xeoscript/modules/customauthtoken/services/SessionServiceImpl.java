@@ -26,12 +26,12 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional
     public void save(String token, String key, String value) throws TokenExpiredException {
-        validateTokenNotExpired(token);
-
         TokenSessionEntity existing = sessionDAO.findByTokenValueAndKey(token, key);
         TokenSessionEntity entity;
 
         if (existing != null) {
+            validateTokenNotExpired(token);
+
             existing.setSessionValue(value);
             entity = existing;
         } else {
